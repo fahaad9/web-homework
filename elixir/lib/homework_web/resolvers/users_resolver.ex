@@ -9,6 +9,14 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   end
 
   @doc """
+  Searching the user based on first/last name
+  """
+  def fuzzy_users(_root, %{firstname: firstname, lastname: lastname}, _info) do
+    {:ok, Users.search_user(firstname, lastname)}
+  end
+
+
+  @doc """
   Creates a user
   """
   def create_user(_root, args, _info) do

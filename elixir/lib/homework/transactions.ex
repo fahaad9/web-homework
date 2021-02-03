@@ -37,6 +37,28 @@ defmodule Homework.Transactions do
   """
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
+
+  @doc """
+  Gets a transactions between min and max value.
+
+  Raises `Ecto.NoResultsError` if the Transaction does not exist.
+
+  ## Examples
+
+      iex> search_transaction(123,456)
+      %Transaction{}
+
+      iex> search_transaction(456,123)
+      ** (Ecto.NoResultsError)
+
+  """
+  def search_transactions(min, max) do
+    query = from t in Transaction,
+                 where: t.amount >= ^min and t.amount <= ^min
+    Repo.all(query)
+  end
+
+
   @doc """
   Creates a transaction.
 

@@ -11,6 +11,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Get a list of transcations
+  """
+  def minmax_transactions(_root, %{min: min, max: max} , _info) do
+    {:ok, Transactions.search_transactions(min, max)}
+  end
+
+  @doc """
   Get the user associated with a transaction
   """
   def user(_root, _args, %{source: %{user_id: user_id}}) do
