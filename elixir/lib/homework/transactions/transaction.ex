@@ -20,7 +20,7 @@ defmodule Homework.Transactions.Transaction do
   @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:user_id, :amount, :debit, :description, :merchant_id])
-    |> validate_required([:user_id, :amount, :debit, :description, :merchant_id])
+    |> cast(attrs, [:user_id, :amount, :debit, :credit, :description, :merchant_id]) #credit is missing for the Transactions where as it is part of the schema(May be its a bug)
+    |> validate_required([:user_id, :amount, :debit, :credit, :description, :merchant_id]) #credit is missing for the Transactions where as it is part of the schema (May be its a bug)
   end
 end
