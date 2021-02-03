@@ -56,6 +56,27 @@ defmodule Homework.Merchants do
   end
 
   @doc """
+  Gets a single merchant.
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+
+  ## Examples
+
+      iex> get_merchant!(123)
+      %Merchant{}
+
+      iex> get_merchant!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def search_merchant(name), do
+    from m in "merchants",
+    where: u.name == name,
+    select: m.Merchant
+    Repo.all(query)
+  end
+
+  @doc """
   Updates a merchant.
 
   ## Examples

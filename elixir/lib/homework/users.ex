@@ -38,6 +38,28 @@ defmodule Homework.Users do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Search a single user.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> search_user!(Tom, Brady)
+      %User{}
+
+      iex> search_user!(James, Bond)
+      ** (Ecto.NoResultsError)
+
+  """
+  def search_user!(firstname, lastname), do
+    from u in "users",
+    where: u.first_name == firstname and u.last_name == lastname,
+    select: u.User
+    Repo.all(query)
+  end
+
+
+  @doc """
   Creates a user.
 
   ## Examples
