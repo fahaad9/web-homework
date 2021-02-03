@@ -53,7 +53,7 @@ defmodule Homework.Users do
   """
   def search_user!(firstname, lastname), do
     from u in "users",
-    where: u.first_name == firstname and u.last_name == lastname,
+    where: u.first_name = ^firstname and u.last_name = ^lastname,
     select: u.User
     Repo.all(query)
   end
