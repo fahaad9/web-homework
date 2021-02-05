@@ -71,13 +71,9 @@ defmodule Homework.Merchants do
   """
   def search_merchant(name, threshold) do
      query = from m in Merchant,
-                  where:
-                    fragment(
-                      "levenshtein(?, ?)",
-                      m.name,
-                      ^name
-                    ) <= ^threshold
-     Repo.all(query)
+              where: m.name = name 
+              select: m.Merchant
+    Repo.all(query)
    end
 
   @doc """
