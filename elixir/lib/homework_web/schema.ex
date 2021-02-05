@@ -7,6 +7,7 @@ defmodule HomeworkWeb.Schema do
   alias HomeworkWeb.Resolvers.MerchantsResolver
   alias HomeworkWeb.Resolvers.TransactionsResolver
   alias HomeworkWeb.Resolvers.UsersResolver
+  alias HomeworkWeb.Resolvers.CompaniesResolver
   import_types(HomeworkWeb.Schemas.Types)
 
   query do
@@ -26,6 +27,11 @@ defmodule HomeworkWeb.Schema do
     @desc "Get all Users"
     field(:users, list_of(:user)) do
       resolve(&UsersResolver.users/3)
+    end
+
+    desc "Get all Companies"
+    field(:companies, list_of(:company)) do
+      resolve(&CompaniesResolver.companies/3)
     end
 
     @desc "Fuzzy Search Users"
@@ -51,5 +57,6 @@ defmodule HomeworkWeb.Schema do
     import_fields(:transaction_mutations)
     import_fields(:user_mutations)
     import_fields(:merchant_mutations)
+    import_fields(:company_mutations)
   end
 end

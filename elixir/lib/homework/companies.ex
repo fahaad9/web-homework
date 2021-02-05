@@ -18,7 +18,7 @@ defmodule Homework.Companies do
       [%Company{}, ...]
 
   """
-  def list_comapnies(_args) do
+  def list_companies(_args) do
     Repo.all(Company)
   end
 
@@ -112,31 +112,27 @@ defmodule Homework.Companies do
 
         case Repo.all(query) do
         [] ->
-            {:error, "invalid query result"}
+            {:error, "invalid query result #{inspect(error)}"}
         [used_credit] ->
-            IO.puts used_credit
                 used_credit = if !used_credit do
                     0
                     else
                     used_credit
                 end
             company = get_company!(id)
-            IO.puts company.credit_line
-            IO.puts used_credit
             available_credit = company.credit_line - used_credit
-            IO.puts available_credit
             args = %{
-            credit_line: company.credit_line,
-            id: id,
-            description: company.description,
-            name: company.name,
-            available_credit: available_credit
-            }
+                        credit_line: company.credit_line,
+                        id: id,
+                        description: company.description,
+                        name: company.name,
+                        available_credit: available_credit
+                    }
             case update_company(company, args) do
             {:ok, company} ->
                 {:ok, company}
             error ->
-                {:error, "could not update company"}
+                {:error, "could not update company: #{inspect(error)}"}
             end
         end
     end

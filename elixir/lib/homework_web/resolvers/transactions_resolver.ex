@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
+  alias Homework.Resolvers.CompaniesResolver
 
   @doc """
   Get a list of transcations
@@ -37,7 +38,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   def create_transaction(_root, args, _info) do
     case Transactions.create_transaction(args) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        CompaniesResolver.update_company(transaction, Map.get(args, :company_id))
 
       error ->
         {:error, "could not create transaction: #{inspect(error)}"}
@@ -47,12 +48,12 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   @doc """
   Updates a transaction for an id with args specified.
   """
-  def update_transaction(_root, %{id: id} = args, _info) do
+  def update_transaction(_root, %{id: id, company_id: company_id} = args, _info) do
     transaction = Transactions.get_transaction!(id)
 
     case Transactions.update_transaction(transaction, args) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        CompaniesResolver.update_company(transaction, Map.get(args, :company_id))
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
@@ -67,7 +68,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->
-        {:ok, transaction}
+        CompaniesResolver.update_company(transaction, Map.get(args, :company_id))
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}
