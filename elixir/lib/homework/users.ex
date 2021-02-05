@@ -51,12 +51,21 @@ defmodule Homework.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def search_user!(firstname, lastname), do
-    from u in "users",
-    where: u.first_name = ^firstname and u.last_name = ^lastname,
-    select: u.User
-    Repo.all(query)
-  end
+  def search_user(first_name, last_name, threshold) do
+     query = from u in User,
+                  where:
+                    fragment(
+                      "levenshtein(?, ?)",
+                      u.first_name,
+                      ^first_name
+                    ) <= ^threshold and
+                    ragment(
+                      "levenshtein(?, ?)",
+                      u.last_name,
+                      ^last_name
+                    ) <= ^threshold
+     Repo.all(query)
+   end
 
 
   @doc """
