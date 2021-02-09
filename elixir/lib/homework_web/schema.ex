@@ -13,33 +13,32 @@ defmodule HomeworkWeb.Schema do
   query do
     @desc "Get all Transactions"
     field(:transactions, list_of(:transaction)) do
-      resolve(&TransactionsResolver.transactions/3)
+     resolve(&TransactionsResolver.transactions/3)
     end
 
-    query do
-      @desc "Get Transactions between Min and Max"
-      field(:minmax_transactions, list_of(:transaction)) do
-        arg: min, non_null(:integer)
-        arg: max, non_null(:integer)
-        resolve(&TransactionsResolver.minmax_transactions/3)
-      end
+    @desc "Get Transactions between Min and Max"
+    field(:minmax_transactions, list_of(:transaction)) do
+     arg :min, non_null(:integer)
+     arg :max, non_null(:integer)
+     resolve(&TransactionsResolver.minmax_transactions/3)
+    end
 
     @desc "Get all Users"
     field(:users, list_of(:user)) do
       resolve(&UsersResolver.users/3)
     end
 
-    desc "Get all Companies"
+    @desc "Get all Companies"
     field(:companies, list_of(:company)) do
       resolve(&CompaniesResolver.companies/3)
     end
 
     @desc "Fuzzy Search Users"
-     field(:fuzzy_users, list_of(:user)) do
-       arg :firstname, non_null(:string)
-       arg :lastname, non_null(:string)
-       resolve(&UsersResolver.fuzzy_users/3)
-     end
+    field(:fuzzy_users, list_of(:user)) do
+     arg :first_name, non_null(:string)
+     arg :last_name, non_null(:string)
+     resolve(&UsersResolver.fuzzy_users/3)
+    end
 
     @desc "Get all Merchants"
     field(:merchants, list_of(:merchant)) do

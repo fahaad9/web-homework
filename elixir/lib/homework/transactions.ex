@@ -54,7 +54,7 @@ defmodule Homework.Transactions do
   """
   def search_transactions(min, max) do
     query = from t in Transaction,
-                 where: t.amount >= ^min and t.amount <= ^min
+                 where: t.amount >= ^min and t.amount <= ^max
     Repo.all(query)
   end
 

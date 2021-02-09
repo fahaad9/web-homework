@@ -12,7 +12,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
   Searching the company based on their name
   """
   def fuzzy_company(_root, %{name: name}, _info) do
-    {:ok, Companies.search_company(name}
+    {:ok, Companies.search_company(name)}
   end
 
   @doc """
@@ -37,12 +37,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
     case Companies.update_company(company, args) do
       {:ok, company} ->
-        {:ok, company} ->
-            credit = Map.put(credit, :available_credit, company.available_credit)
-            {:ok, credit}
-        error ->
-         {:error, "could not update available credit for company #{inspect(error)}"}
-
+        update_company_available_credit(company, id)
       error ->
         {:error, "could not update company: #{inspect(error)}"}
     end
@@ -62,4 +57,15 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
         {:error, "could not update company: #{inspect(error)}"}
     end
   end
+
+  def update_company_available_credit(object, id) do
+    case Companies.update_available_credit(id) do 
+            {:ok, company} ->
+              object = Map.put(object, :available_credit, company.available_credit)
+              {:ok, object}
+          error ->
+          {:error, "Error updating credit for the company #{inspect(error)}"}
+    end
+  end
 end
+

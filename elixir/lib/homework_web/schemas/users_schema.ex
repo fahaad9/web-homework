@@ -18,6 +18,7 @@ defmodule HomeworkWeb.Schemas.UsersSchema do
     field(:company , :company)do
       resolve(&UsersResolver.company/3)
   end
+end
 
   object :user_mutations do
     @desc "Create a new user"

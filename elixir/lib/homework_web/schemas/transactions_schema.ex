@@ -36,7 +36,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:amount, non_null(:integer))
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
-      arg(:company_id, non_null(::id))
+      arg(:company_id, non_null(:id))
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.create_transaction/3)
@@ -51,7 +51,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
       arg(:amount, non_null(:integer))
       arg(:credit, non_null(:boolean))
       arg(:debit, non_null(:boolean))
-      arg(:company_id, non_null(::id))
+      arg(:company_id, non_null(:id))
       arg(:description, non_null(:string))
 
       resolve(&TransactionsResolver.update_transaction/3)

@@ -62,17 +62,17 @@ defmodule Homework.Merchants do
 
   ## Examples
 
-      iex> get_merchant(Tony)
+      iex> search_merchant(Tony)
       %Merchant{}
 
-      iex> get_merchant(Stark)
+      iex> search_merchant(Stark)
       ** (Ecto.NoResultsError)
 
   """
-  def search_merchant(name, threshold) do
+  def search_merchant(name) do
      query = from m in Merchant,
-              where: m.name = name 
-              select: m.Merchant
+              where: m.name == ^name, 
+              select: m.merchant
     Repo.all(query)
    end
 

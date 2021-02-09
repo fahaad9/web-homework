@@ -59,7 +59,7 @@ defmodule Homework.Users do
                       u.first_name,
                       ^first_name
                     ) <= ^threshold and
-                    ragment(
+                    fragment(
                       "levenshtein(?, ?)",
                       u.last_name,
                       ^last_name

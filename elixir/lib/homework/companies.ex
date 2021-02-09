@@ -112,7 +112,7 @@ defmodule Homework.Companies do
 
         case Repo.all(query) do
         [] ->
-            {:error, "invalid query result #{inspect(error)}"}
+            {:error, "invalid query result"}
         [used_credit] ->
                 used_credit = if !used_credit do
                     0

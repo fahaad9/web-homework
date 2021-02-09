@@ -68,7 +68,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
 
     case Transactions.delete_transaction(transaction) do
       {:ok, transaction} ->
-        CompaniesResolver.update_company(transaction, Map.get(args, :company_id))
+        CompaniesResolver.update_company(transaction, transaction.company_id)
 
       error ->
         {:error, "could not update transaction: #{inspect(error)}"}

@@ -12,7 +12,7 @@ defmodule HomeworkWeb.Resolvers.MerchantsResolver do
   Searching the merchant based on their name
   """
   def fuzzy_merchant(_root, %{name: name}, _info) do
-    {:ok, Merchants.search_merchant(name}
+    {:ok, Merchants.search_merchant(name)}
   end
 
   @doc """
