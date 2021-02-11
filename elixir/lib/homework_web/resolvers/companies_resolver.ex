@@ -37,13 +37,7 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
     case Companies.update_company(company, args) do
       {:ok, company} ->
-        case Companies.update_available_credit(id) do 
-            {:ok, company} ->
-              company = Map.put(company, :available_credit, company.available_credit)
-              {:ok, company}
-          error ->
-          {:error, "Error updating credit for the company #{inspect(error)}"}
-        end
+        update_available_credit(company, id)
     error ->
        {:error, "could not update company: #{inspect(error)}"}
     end
@@ -61,6 +55,20 @@ defmodule HomeworkWeb.Resolvers.CompaniesResolver do
 
       error ->
         {:error, "could not update company: #{inspect(error)}"}
+    end
+  end
+
+  
+  @doc """
+  Updates credit for the company - Helper Function
+  """
+  def update_available_credit(object, id) do
+    case Companies.update_available_credit(id) do 
+            {:ok, company} ->
+              object = Map.put(object, :available_credit, company.available_credit)
+              {:ok, object}
+          error ->
+          {:error, "Error updating credit for the company #{inspect(error)}"}
     end
   end
 end
